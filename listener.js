@@ -9,10 +9,10 @@ export const listener = async (req, res, next) => {
     try {
         const request = await axios({
             method: 'GET',
-            validateStatus: (status) => true,
+            validateStatus: (_status) => true,
             url: req.query.url
         });
-        if(request.status > 304 || request.status < 200 || request.status === 200) {
+        if(request.status > 304 || request.status < 200 || request.status === 204) {
             res.status(request.status);
             return res.json({message: 'Invalid url'});
         }
