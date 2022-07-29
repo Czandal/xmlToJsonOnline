@@ -3,6 +3,7 @@ import parser from "xml2json";
 
 export const listener = async (req, res, next) => {
     if(!req.query.url) {
+        res.status(400);
         console.log('Source url not given');
         return res.json({message: 'Provide some url to xml'});
     }
@@ -19,6 +20,7 @@ export const listener = async (req, res, next) => {
         const obj = parser.toJson(request.data, { object: true });
         return res.json({ ...obj });
     } catch (err) {
+        res.status(500);
         console.log('Error caught: ', {err});
         return res.json({message: `Unexpected error: ${err.message}`})
     }
